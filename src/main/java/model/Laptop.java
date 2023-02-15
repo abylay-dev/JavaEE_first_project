@@ -47,4 +47,14 @@ public class Laptop {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "Laptop{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                '}';
+    }
 }

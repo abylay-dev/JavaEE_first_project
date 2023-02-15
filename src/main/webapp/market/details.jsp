@@ -1,15 +1,14 @@
-<%@ page import="java.util.List" %>
 <%@ page import="model.Laptop" %><%--
   Created by IntelliJ IDEA.
   User: noname
-  Date: 13.02.2023
-  Time: 20:57
+  Date: 15.02.2023
+  Time: 21:35
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home page</title>
+    <title>Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
@@ -17,7 +16,6 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Market</a>
@@ -38,38 +36,31 @@
     </div>
 </nav>
 <br>
-<div class="container">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Model</th>
-            <th scope="col">Count</th>
-            <th scope="col">Price</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
 
-        <%
-            List<Laptop> laptops = (List<Laptop>) request.getAttribute("nouts");
-            for (Laptop l : laptops) {
-        %>
-        <tr>
-            <th scope="row"><%=l.getId()%></th>
-            <td><%=l.getModel()%></td>
-            <td><%=l.getCount()%></td>
-            <td><%=l.getPrice() + " KZT"%></td>
-            <td><a href="details?id=<%=l.getId()%>" type="button" class="btn btn-info">Edit</a></td>
-            <td><a type="button" class="btn btn-danger">Delete</a></td>
-        </tr>
-        <%
-            }
-        %>
+<%
+    Laptop laptop = (Laptop) request.getAttribute("laptop");
+%>
 
-        </tbody>
-    </table>
+<div class="container" style="width: 50%">
+    <form action="details" method="post">
+        <div class="mb-3 mt-5">
+            <label for="modelName" class="form-label">Model</label>
+            <input name="model" type="text" class="form-control" id="modelName"
+                   placeholder="Model" value="<%=laptop.getModel()%>">
+        </div>
+        <div class="mb-3">
+            <label for="count" class="form-label">Count</label>
+            <input name="count" class="form-control" id="count" placeholder="5"/>
+        </div>
+        <div class="mb-4">
+            <label for="price" class="form-label">Price</label>
+            <input name="price" class="form-control" id="price" placeholder="50000"/>
+        </div>
+        <input class="btn btn-primary" type="submit" value="ADD">
+    </form>
+    <!-- TODO edit COUNT, PRICE, BUTTON и прописать логику в ProductDetailsServlet чтобы вы изменились данные -->
 </div>
+
+
 </body>
 </html>

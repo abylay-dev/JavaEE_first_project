@@ -18,4 +18,13 @@ public class DBManager {
     public static List<Laptop> getLaptops() {
         return laptops;
     }
+
+    public static Laptop getLaptop(int id) {
+        for (Laptop l : laptops) {
+            if (l.getId() == id) {
+                return l;
+            }
+        }
+        return null;
+    }
 }
