@@ -22,7 +22,7 @@ public class AddServlet extends HttpServlet {
         int price = Integer.parseInt(request.getParameter("price"));
         int count = Integer.parseInt(request.getParameter("count"));
 
-        DBManager.getLaptops().add(new Laptop(DBManager.id++, model, price, count));
+//        DBManager.getLaptops().add(new Laptop(DBManager.id++, model, price, count));
 
         response.sendRedirect("/");
     }

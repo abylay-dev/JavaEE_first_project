@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.*;
 import model.Laptop;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(name = "HomeServlet", value = "/")
@@ -14,7 +15,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //list of products
-        List<Laptop> laptops = DBManager.getLaptops();
+        List<Laptop> laptops = null;
+        try {
+            laptops = DBManager.getLaptops();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         request.setAttribute("nouts", laptops);
         request.getRequestDispatcher("/market/home.jsp").forward(request, response);
