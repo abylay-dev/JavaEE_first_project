@@ -26,11 +26,10 @@ public class DBManager {
         List<Laptop> laptops = new ArrayList<>();
 
         while (rs.next()) {
-            Laptop l = new Laptop();
-            l.setId(rs.getInt("id"));
-            l.setModel(rs.getString("model"));
-            l.setPrice(rs.getInt("price"));
-            l.setCount(rs.getInt("count"));
+            Laptop l = new Laptop(rs.getInt("id"),
+                    rs.getString("model"),
+                    rs.getInt("price"),
+                    rs.getInt("count"));
 
             laptops.add(l);
         }
@@ -38,12 +37,35 @@ public class DBManager {
         return laptops;
     }
 
-    public static Laptop getLaptop(int id) {
-//        for (Laptop l : laptops) {
-//            if (l.getId() == id) {
-//                return l;
-//            }
-//        }
-        return null;
+    public static Laptop getLaptop(int id) throws SQLException {
+        PreparedStatement statement = con.prepareStatement("SELECT * from laptop where id=?");
+        statement.setInt(1, id);
+
+        //PreparedStatement statement = con.prepareStatement("SELECT * from laptop where id=" + id);
+
+        ResultSet rs = statement.executeQuery();
+
+        Laptop l = null;
+        while (rs.next()) {
+            l = new Laptop(rs.getInt("id"),
+                    rs.getString("model"),
+                    rs.getInt("price"),
+                    rs.getInt("count"));
+        }
+
+        return l;
+    }
+
+    public static void addProduct(Laptop laptop) throws SQLException {
+        PreparedStatement statement = con.prepareStatement("INSERT INTO laptop values (null, ?, ?, ?)");
+        statement.setString(1, laptop.getModel());
+        statement.setInt(2, laptop.getPrice());
+        statement.setInt(3, laptop.getCount());
+
+        statement.executeUpdate();
+    }
+
+    public static void updateProduct(Laptop laptop) throws SQLException {
+        //TODO
     }
 }

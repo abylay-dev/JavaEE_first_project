@@ -1,7 +1,7 @@
 package model;
 
 public class Laptop {
-    private int id;
+    private Integer id;
     private String model;
     private int price;
     private int count;
@@ -9,18 +9,18 @@ public class Laptop {
     public Laptop() {
     }
 
-    public Laptop(int id, String model, int price, int count) {
+    public Laptop(Integer id, String model, int price, int count) {
         this.id = id;
         this.model = model;
         this.price = price;
         this.count = count;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.*;
 import model.Laptop;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(value = "/add")
 public class AddServlet extends HttpServlet {
@@ -22,7 +23,11 @@ public class AddServlet extends HttpServlet {
         int price = Integer.parseInt(request.getParameter("price"));
         int count = Integer.parseInt(request.getParameter("count"));
 
-//        DBManager.getLaptops().add(new Laptop(DBManager.id++, model, price, count));
+        try {
+            DBManager.addProduct(new Laptop(null, model, price, count));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         response.sendRedirect("/");
     }
