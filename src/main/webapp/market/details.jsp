@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<%@include file="vendor/navbar.jsp"%>
+<%@include file="vendor/navbar.jsp" %>
 <br>
 
 <%
@@ -38,6 +38,9 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" id="price" placeholder="50000"/>
         </div>
+
+        <input name="id" hidden value="<%=laptop.getId()%>"/>
+
         <input class="btn btn-primary" type="submit" value="ADD">
     </form>
     <!-- TODO edit COUNT, PRICE, BUTTON и прописать логику в ProductDetailsServlet чтобы вы изменились данные -->
