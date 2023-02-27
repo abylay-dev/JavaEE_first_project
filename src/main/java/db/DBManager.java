@@ -68,4 +68,9 @@ public class DBManager {
     public static void updateProduct(Laptop laptop) throws SQLException {
         //TODO
     }
+
+    public static int deleteProduct(int id) throws SQLException {
+        PreparedStatement statement = con.prepareStatement("DELETE FROM laptop WHERE id=" + id);
+        return statement.executeUpdate();
+    }
 }

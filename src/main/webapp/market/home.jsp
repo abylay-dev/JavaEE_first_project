@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<%@include file="vendor/navbar.jsp"%>
+<%@include file="vendor/navbar.jsp" %>
 <br>
 <div class="container">
     <table class="table table-hover">
@@ -39,12 +39,49 @@
             for (Laptop l : laptops) {
         %>
         <tr>
-            <th scope="row"><%=l.getId()%></th>
-            <td><%=l.getModel()%></td>
-            <td><%=l.getCount()%></td>
-            <td><%=l.getPrice() + " KZT"%></td>
+            <th scope="row"><%=l.getId()%>
+            </th>
+            <td><%=l.getModel()%>
+            </td>
+            <td><%=l.getCount()%>
+            </td>
+            <td><%=l.getPrice() + " KZT"%>
+            </td>
             <td><a href="details?id=<%=l.getId()%>" type="button" class="btn btn-info">Edit</a></td>
-            <td><a type="button" class="btn btn-danger">Delete</a></td>
+            <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal<%=l.getId()%>">
+                    Delete
+                </button>
+
+                <div class="modal fade" id="deleteModal<%=l.getId()%>" tabindex="-1" aria-labelledby="deleteModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="delete" method="post">
+                                <input hidden name="id" value="<%=l.getId()%>">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel">
+                                        <%=l.getId() + " " + l.getModel()%>
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Do you want to delete product ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </td>
         </tr>
         <%
             }
