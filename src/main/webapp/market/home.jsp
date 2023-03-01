@@ -28,6 +28,7 @@
             <th scope="col">Model</th>
             <th scope="col">Count</th>
             <th scope="col">Price</th>
+            <th scope="col">Country</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
@@ -47,6 +48,9 @@
             </td>
             <td><%=l.getPrice() + " KZT"%>
             </td>
+
+            <td><%=l.getCountry().getName()%></td>
+
             <td><a href="details?id=<%=l.getId()%>" type="button" class="btn btn-info">Edit</a></td>
             <td>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"

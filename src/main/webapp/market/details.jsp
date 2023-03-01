@@ -1,4 +1,6 @@
-<%@ page import="model.Laptop" %><%--
+<%@ page import="model.Laptop" %>
+<%@ page import="model.Country" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: noname
   Date: 15.02.2023
@@ -38,6 +40,20 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" id="price" placeholder="50000"/>
         </div>
+        <select class="form-select" aria-label="Default select example">
+            <% for (Country c : (List<Country>) request.getAttribute("countries")) {
+                if (c.getCode().equals(laptop.getCountry().getCode())) { %>
+            <option selected name="country_code" value="<%=c.getCode()%>"><%=c.getName()%>
+            </option>
+            <% } else {
+            %>
+            <option name="country_code" value="<%=c.getCode()%>"><%=c.getName()%>
+            </option>
+            <%
+                    }
+                }
+            %>
+        </select>
 
         <input name="id" hidden value="<%=laptop.getId()%>"/>
 

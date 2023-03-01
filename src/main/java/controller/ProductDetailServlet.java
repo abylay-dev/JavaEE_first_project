@@ -37,9 +37,10 @@ public class ProductDetailServlet extends HttpServlet {
         String model = request.getParameter("model");
         int price = Integer.parseInt(request.getParameter("price"));
         int count = Integer.parseInt(request.getParameter("count"));
+        String country_code = request.getParameter("country_code");
 
         try {
-            DBManager.updateProduct(new Laptop(null, model, price, count));
+            DBManager.updateProduct(new Laptop(null, model, price, count), country_code);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

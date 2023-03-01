@@ -1,4 +1,5 @@
-<%--
+<%@ page import="model.Country" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: noname
   Date: 13.02.2023
@@ -34,6 +35,14 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" id="price" placeholder="50000"/>
         </div>
+        <select class="form-select" aria-label="Default select example">
+            <% for (Country c : (List<Country>) request.getAttribute("countries")) {%>
+            <option name="country_code" value="<%=c.getCode()%>"><%=c.getName()%>
+            </option>
+            <%}%>
+        </select>
+        <br>
+
         <input class="btn btn-primary" type="submit" value="ADD">
     </form>
 </div>
