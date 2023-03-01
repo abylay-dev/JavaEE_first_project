@@ -22,18 +22,18 @@ public class DBManager {
     }
 
     public static List<Laptop> getLaptops() throws SQLException {
-        statement = con.prepareStatement("SELECT * from laptop ");
+        statement = con.prepareStatement("SELECT l.*, c.name from laptop l left join country c on c.code=l.country_code");
         ResultSet rs = statement.executeQuery();
 
         List<Laptop> laptops = new ArrayList<>();
 
         while (rs.next()) {
-            Country country = getCountry(rs.getString("country_code"));
-            Laptop l = new Laptop(rs.getInt("id"),
-                    rs.getString("model"),
-                    rs.getInt("price"),
-                    rs.getInt("count"),
-                    country);
+            Laptop l = new Laptop(rs.getInt("l.id"),
+                    rs.getString("l.model"),
+                    rs.getInt("l.price"),
+                    rs.getInt("l.count"),
+                    new Country(rs.getString("l.country_code"),
+                            rs.getString("c.name")));
 
             laptops.add(l);
         }
@@ -42,7 +42,7 @@ public class DBManager {
     }
 
     public static Laptop getLaptop(int id) throws SQLException {
-        statement = con.prepareStatement("SELECT * from laptop where id=?");
+        statement = con.prepareStatement("SELECT l.* from laptop l inner join country c on c.code=l.country_code where id=?");
         statement.setInt(1, id);
 
         //PreparedStatement statement = con.prepareStatement("SELECT * from laptop where id=" + id);
@@ -51,12 +51,12 @@ public class DBManager {
 
         Laptop l = null;
         while (rs.next()) {
-            Country country = getCountry(rs.getString("country_code"));
-            l = new Laptop(rs.getInt("id"),
-                    rs.getString("model"),
-                    rs.getInt("price"),
-                    rs.getInt("count"),
-                    country);
+            l = new Laptop(rs.getInt("l.id"),
+                    rs.getString("l.model"),
+                    rs.getInt("l.price"),
+                    rs.getInt("l.count"),
+                    new Country(rs.getString("l.country_code"),
+                            rs.getString("c.name")));
         }
 
         return l;
@@ -94,20 +94,6 @@ public class DBManager {
             countries.add(c);
         }
         return countries;
-    }
-
-    private static Country getCountry(String code) throws SQLException {
-        statement = con.prepareStatement("SELECT * from country where code=?");
-        statement.setString(1, code);
-
-        ResultSet rs = statement.executeQuery();
-
-        Country c = null;
-        while (rs.next()) {
-            c = new Country(rs.getString("code"),
-                    rs.getString("name"));
-        }
-        return c;
     }
 
 
