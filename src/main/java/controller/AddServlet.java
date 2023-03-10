@@ -35,6 +35,9 @@ public class AddServlet extends HttpServlet {
 
         try {
             DBManager.addProduct(new Laptop(null, model, price, count), country_code);
+            Cookie cookie = new Cookie("last_product_country", country_code);
+            cookie.setComment("The country of last added product");
+            response.addCookie(cookie);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

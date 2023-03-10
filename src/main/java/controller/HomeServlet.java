@@ -22,6 +22,17 @@ public class HomeServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies){
+            if (c.getName() == "card"){
+                try {
+                    DBManager.getLaptop(Integer.parseInt(c.getValue()));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
         request.setAttribute("nouts", laptops);
         request.getRequestDispatcher("/market/home.jsp").forward(request, response);
     }
