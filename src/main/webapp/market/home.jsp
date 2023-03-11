@@ -35,6 +35,9 @@
         </thead>
         <tbody>
 
+        <h1><%=request.getSession().getAttribute("welcome")%>
+        </h1>
+
         <%
             List<Laptop> laptops = (List<Laptop>) request.getAttribute("nouts");
             for (Laptop l : laptops) {
@@ -49,7 +52,8 @@
             <td><%=l.getPrice() + " KZT"%>
             </td>
 
-            <td><%=l.getCountry().getName()%></td>
+            <td><%=l.getCountry().getName()%>
+            </td>
 
             <td><a href="details?id=<%=l.getId()%>" type="button" class="btn btn-info">Edit</a></td>
             <td>
